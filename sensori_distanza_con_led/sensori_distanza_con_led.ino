@@ -6,8 +6,6 @@
 const int triggerPort = 7;
 const int echoPort = 8;
 
-const int buzzerPort = 4;
-
 byte r = 255;
 byte g = 0;
 byte b = 0;
@@ -44,47 +42,23 @@ void loop() {
   if ( duration > 38000 ) {
     Serial.println( "fuori portata");
     r = 255;
-    g = 255;
-    b = 255;
+    g = 0;
+    b = 0;
   }
   else {
     Serial.print( distance );
     Serial.println( " cm" );
 
-  }
-
-
-  if ( distance < 128 ) {
-    tone( buzzerPort, 600, distance);
-
-    r = 255 - (distance * 2);
-    g = 0;
-    b = 0;
-
-
-  analogWrite(GREENPIN, g);
-  analogWrite(BLUEPIN, b);
-  analogWrite(REDPIN, r);
-
-    delay( distance * 2 );
-
-  } else {
-  //aspetta 0.6 secondi prima di inviare un altro ping ultrasonico
-    
-
-
-  analogWrite(GREENPIN, g);
-  analogWrite(BLUEPIN, b);
-  analogWrite(REDPIN, r);
-
     r = 0;
     g = 255;
     b = 0;
-    delay( 600 );
+
   }
 
-
+  analogWrite(GREENPIN, g);
+  analogWrite(BLUEPIN, b);
+  analogWrite(REDPIN, r);
 
   // si aspettano 1.5 secondi prima di inviare un altro ping ultrasonico
-  //delay( 1500 );
+  delay( 1500 );
 }
